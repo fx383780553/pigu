@@ -66,8 +66,14 @@ public class TipPanelCtrl : MonoBehaviour {
         if (inputFloat < 0.04f || inputFloat >= 0.15f)
             ShowTips("不适用");
         else if(inputFloat >= 0.04f & inputFloat < 0.08f)
-            Global.EnterDataPanel(1);
+            Global.EnterDataPanel(inputFloat, 1);
         else
-            Global.EnterDataPanel(2);
+            Global.EnterDataPanel(inputFloat, 2);
+    }
+
+    public void RefreshPanel()
+    {
+        HideTips();
+        input.text = "";
     }
 }
