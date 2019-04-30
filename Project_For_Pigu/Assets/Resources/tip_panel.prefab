@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224325578510220634}
-  - component: {fileID: 114068295474604888}
+  - component: {fileID: 114474738059082210}
   m_Layer: 5
   m_Name: tip_panel
   m_TagString: Untagged
@@ -192,20 +192,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114068295474604888
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1001930026102392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc811e8a77c76834caa7b78de0f38eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: {fileID: 114733277602496906}
-  tipsText: {fileID: 114162833971083702}
-  enterBtn: {fileID: 114341926088535476}
 --- !u!114 &114162833971083702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -379,6 +365,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114474738059082210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001930026102392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0e408c259e6484f9ed83ed69521aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 114733277602496906}
+  tipsText: {fileID: 114162833971083702}
+  enterBtn: {fileID: 114341926088535476}
 --- !u!114 &114658947904103318
 MonoBehaviour:
   m_ObjectHideFlags: 1

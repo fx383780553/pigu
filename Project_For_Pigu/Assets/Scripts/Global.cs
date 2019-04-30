@@ -49,7 +49,8 @@ public class Global : MonoBehaviour {
         CloseTipPanel();
 
         DataPanelCtrl dataCtrl = dataPanel.GetComponent<DataPanelCtrl>();
-        dataCtrl.PipeWide = pipeWide;
+        //dataCtrl.PipeWide = pipeWide;
+        MainManager.Instance.PipeDiameter=pipeWide;
         dataCtrl.RefreshPanel();
 
     }
@@ -57,7 +58,7 @@ public class Global : MonoBehaviour {
     void OpenDataPanel()
     {
         if (dataPanel == null)
-            dataPanel = Instantiate(Resources.Load<GameObject>("dataPanel"), mainCanvas.transform);
+            dataPanel = Instantiate(Resources.Load<GameObject>("data_panel"), mainCanvas.transform);
         else
             dataPanel.SetActive(true);
     }
