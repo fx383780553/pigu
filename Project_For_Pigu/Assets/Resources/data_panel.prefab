@@ -1174,10 +1174,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1349,7 +1349,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 114294018408082992}
   m_TextComponent: {fileID: 114999929643423738}
   m_Placeholder: {fileID: 114804368195645014}
@@ -1704,6 +1704,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bf6369e7bbd1b40b9507388ad2f47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diameterInput: {fileID: 114212828226143142}
+  waterExtractionInput: {fileID: 114336374332920736}
+  gasExtractionInput: {fileID: 114158667592641158}
+  oilPressureInput: {fileID: 114193670755432558}
+  casingPressureInput: {fileID: 114023486854084388}
+  pipeLengthInput: {fileID: 114410248728976734}
+  swirlAngleText: {fileID: 114525574715116300}
+  spiralLineHeightText: {fileID: 114733788956646800}
+  spiralLineCountText: {fileID: 114442789647627104}
+  pipeLineWidthText: {fileID: 114851739478194730}
+  spiralLineWidthText: {fileID: 114305271338282996}
+  splShapeText: {fileID: 114254105381253016}
+  splDirectionText: {fileID: 114892460597628084}
+  leadCountText: {fileID: 114255425742775992}
+  sureButton: {fileID: 114028229170179734}
+  backButton: {fileID: 114524185839642530}
 --- !u!114 &114356492127171646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2200,10 +2216,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2233,10 +2249,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2497,10 +2513,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2815,10 +2831,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2848,10 +2864,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -4040,7 +4056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 231, y: 100}
+  m_AnchoredPosition: {x: 121.79999, y: 51.631958}
   m_SizeDelta: {x: 160.40002, y: 57.299988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224923599607777478

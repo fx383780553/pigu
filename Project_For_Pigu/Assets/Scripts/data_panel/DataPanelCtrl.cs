@@ -6,24 +6,57 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DataPanelCtrl : MonoBehaviour {
-   InputField diameterInput;
-   InputField waterExtractionInput;
-   InputField gasExtractionInput;
-   InputField oilPressureInput;
-   InputField casingPressureInput;
-   InputField pipeLengthInput;
-   Text swirlAngleText;
-   Text spiralLineHeightText;
-   Text spiralLineCountText;
-   Text pipeLineWidthText;
-   Text spiralLineWidthText;
-   Text splShapeText;
-   Text splDirectionText;
-   Text leadCountText;
+    [SerializeField]
+    InputField diameterInput;
+    [SerializeField]
+    InputField waterExtractionInput;
+    [SerializeField]
+    InputField gasExtractionInput;
+    [SerializeField]
+    InputField oilPressureInput;
+    [SerializeField]
+    InputField casingPressureInput;
+    [SerializeField]
+    InputField pipeLengthInput;
+    [SerializeField]
+    Text swirlAngleText;
+    [SerializeField]
+    Text spiralLineHeightText;
+    [SerializeField]
+    Text spiralLineCountText;
+    [SerializeField]
+    Text pipeLineWidthText;
+    [SerializeField]
+    Text spiralLineWidthText;
+    [SerializeField]
+    Text splShapeText;
+    [SerializeField]
+    Text splDirectionText;
+    [SerializeField]
+    Text leadCountText;
+    [SerializeField]
+    Button sureButton;
+    [SerializeField]
+    Button backButton;
+
+    private float pipeWide;
+
+    public float PipeWide
+    {
+        get
+        {
+            return pipeWide;
+        }
+
+        set
+        {
+            pipeWide = value;
+        }
+    }
 
     public void RefreshPanel()
     {
-        diameterInput.text=MainManager.Instance.PipeDiameter.ToString();
+        diameterInput.text = PipeWide.ToString();
         waterExtractionInput.text="";
         gasExtractionInput.text="";
         oilPressureInput.text="";
@@ -42,26 +75,64 @@ public class DataPanelCtrl : MonoBehaviour {
     // Use this for initialization
     void Start () 
     {
-		diameterInput=transform.Find("DiameterInput").GetComponent<InputField>();
-		waterExtractionInput=transform.Find("WaterExtractionInput").GetComponent<InputField>();
-		gasExtractionInput=transform.Find("GasExtractionInput").GetComponent<InputField>();
-		oilPressureInput=transform.Find("OilPressureInput").GetComponent<InputField>();
-		casingPressureInput=transform.Find("CasingPressureInput").GetComponent<InputField>();
-		pipeLengthInput=transform.Find("PipeLengthInput").GetComponent<InputField>();
+        sureButton.onClick.AddListener(SureBtnClick);
+        backButton.onClick.AddListener(BackBtnClick);
+    }
 
-        swirlAngleText=transform.Find("SwirlAngleText").GetComponent<Text>();
-        spiralLineHeightText=transform.Find("SpiralLineHeightText").GetComponent<Text>();
-        spiralLineCountText=transform.Find("SpiralLineCountText").GetComponent<Text>();
-        pipeLineWidthText=transform.Find("PipeLineWidthText").GetComponent<Text>();
-        spiralLineWidthText=transform.Find("SpiralLineWidthText").GetComponent<Text>();
-        splShapeText=transform.Find("SplShapeText").GetComponent<Text>();
-        splDirectionText=transform.Find("SplDirectionText").GetComponent<Text>();
-        leadCountText=transform.Find("LeadCountText").GetComponent<Text>();
+    void SureBtnClick()
+    {
+        bool parseSucces;
+        MainManager.Instance.PipeDiameter = pipeWide;
+        float waterExtraction = 0;
+        parseSucces = float.TryParse(waterExtractionInput.text,out waterExtraction);
+        if (parseSucces)
+            MainManager.Instance.WaterExtraction = waterExtraction;
+        else
+        {
+            Global.Instance.ShowErrorTip("产水量输入错误");
+            return;
+        }
+        float gasExtraction = 0;
+        parseSucces = float.TryParse(gasExtractionInput.text, out gasExtraction);
+        if (parseSucces)
+            MainManager.Instance.GasExtraction = gasExtraction;
+        else
+        {
+            Global.Instance.ShowErrorTip("产气量输入错误");
+            return;
+        }
+        float oilPressure = 0;
+        parseSucces = float.TryParse(oilPressureInput.text, out oilPressure);
+        if (parseSucces)
+            MainManager.Instance.OilPressure = oilPressure;
+        else
+        {
+            Global.Instance.ShowErrorTip("油压输入错误");
+            return;
+        }
+        float casingPressure = 0;
+        parseSucces = float.TryParse(casingPressureInput.text, out casingPressure);
+        if (parseSucces)
+            MainManager.Instance.CasingPressure = casingPressure;
+        else
+        {
+            Global.Instance.ShowErrorTip("套压输入错误");
+            return;
+        }
+        float pipeLength = 0;
+        parseSucces = float.TryParse(pipeLengthInput.text, out pipeLength);
+        if (parseSucces)
+            MainManager.Instance.PipeLength = pipeLength;
+        else
+        {
+            Global.Instance.ShowErrorTip("管长输入错误");
+            return;
+        }
+    }
 
-        diameterInput.onValueChanged.AddListener((str)=>{
-            float x=(float)(Convert.ToDouble(str));
-            MainManager.Instance.PipeDiameter=x;
-            });
-	}
-	
+    void BackBtnClick()
+    {
+        Global.Instance.EnterTipPanel();
+    }
+
 }

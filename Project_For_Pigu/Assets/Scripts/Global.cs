@@ -6,6 +6,7 @@ public class Global : MonoBehaviour {
     private GameObject mainCanvas;
     private GameObject tipPanel;
     private GameObject dataPanel;
+    private GameObject errorTipPanel;
     private static Global instance;
 
     public static Global Instance
@@ -30,6 +31,7 @@ public class Global : MonoBehaviour {
     {
         OpenTipPanel();
         CloseDataPanel();
+        CloseErrorTip();
 
         TipPanelCtrl tipCtrl = tipPanel.GetComponent<TipPanelCtrl>();
         tipCtrl.RefreshPanel();
@@ -55,10 +57,11 @@ public class Global : MonoBehaviour {
     {
         OpenDataPanel();
         CloseTipPanel();
+        CloseErrorTip();
 
         DataPanelCtrl dataCtrl = dataPanel.GetComponent<DataPanelCtrl>();
-        //dataCtrl.PipeWide = pipeWide;
-        MainManager.Instance.PipeDiameter=pipeWide;
+        dataCtrl.PipeWide = pipeWide;
+        //MainManager.Instance.PipeDiameter=pipeWide;
         dataCtrl.RefreshPanel();
 
     }
@@ -77,5 +80,22 @@ public class Global : MonoBehaviour {
             return;
         else
             dataPanel.SetActive(false);
+    }
+
+    public void ShowErrorTip(string errorInfo)
+    {
+        if (errorTipPanel == null)
+            errorTipPanel = Instantiate(Resources.Load<GameObject>("error_tip_panel"), mainCanvas.transform);
+        else
+            errorTipPanel.SetActive(true);
+        errorTipPanel.GetComponent<ErrorTipPanelCtrl>().RefreshPanel(errorInfo);
+    }
+
+    void CloseErrorTip()
+    {
+        if (errorTipPanel == null)
+            return;
+        else
+            errorTipPanel.SetActive(false);
     }
 }
