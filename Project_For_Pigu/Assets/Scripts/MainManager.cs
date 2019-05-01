@@ -246,7 +246,7 @@ public class MainManager
     }
 
     //打开哪个参数表
-    public int TableSelect;
+    public int TableSelect=1;
     //所有的位置
     public List<PointPos> posList;
 
