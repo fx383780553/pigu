@@ -13,20 +13,6 @@ public class TipPanelCtrl : MonoBehaviour {
     [SerializeField]
     private Button enterBtn;
 
-    private Global global;
-    public Global Global
-    {
-        get
-        {
-            return global;
-        }
-
-        set
-        {
-            global = value;
-        }
-    }
-
     // Use this for initialization
     void Start () {
         InitPanel();
@@ -66,9 +52,9 @@ public class TipPanelCtrl : MonoBehaviour {
         if (inputFloat < 0.04f || inputFloat >= 0.15f)
             ShowTips("不适用");
         else if(inputFloat >= 0.04f & inputFloat < 0.08f)
-            Global.EnterDataPanel(inputFloat, 1);
+            Global.Instance.EnterDataPanel(inputFloat, 1);
         else
-            Global.EnterDataPanel(inputFloat, 2);
+            Global.Instance.EnterDataPanel(inputFloat, 2);
     }
 
     public void RefreshPanel()

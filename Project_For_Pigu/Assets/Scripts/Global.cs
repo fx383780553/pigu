@@ -6,8 +6,19 @@ public class Global : MonoBehaviour {
     private GameObject mainCanvas;
     private GameObject tipPanel;
     private GameObject dataPanel;
+    private static Global instance;
+
+    public static Global Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
     void Awake()
     {
+        instance = this;
         mainCanvas = GameObject.FindWithTag("MainCanvas");
     }
 	// Use this for initialization
@@ -27,10 +38,7 @@ public class Global : MonoBehaviour {
     void OpenTipPanel()
     {
         if (tipPanel == null)
-        {
             tipPanel = Instantiate(Resources.Load<GameObject>("tip_panel"), mainCanvas.transform);
-            tipPanel.GetComponent<TipPanelCtrl>().Global = this;
-        }
         else
             tipPanel.SetActive(true);
     }
