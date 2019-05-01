@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Painter : MonoBehaviour {
+public class Painter : MonoBehaviour
+{
 
     // When added to an object, draws colored rays from the
     // transform position.
+    Button button1;
 
-
-        public  void GenerateText()
+    public void GenerateText()
     {
-        Texture2D tmp2D = new Texture2D(300, 400);
-        for(int i=0;i<tmp2D.width;i++)
+        Texture2D tmp2D = new Texture2D(400, 300);
+        for (int i = 0; i < tmp2D.width; i++)
         {
-            for(int j=0;j<tmp2D.height;j++)
+            for (int j = 0; j < tmp2D.height; j++)
             {
-                tmp2D.SetPixel(i, j, Color.black);
+                tmp2D.SetPixel(i, j, Color.white);
             }
         }
         tmp2D.Apply();
 
-        Debug.Log("allPoints.Count"+ allPoints.Count);
-       
+        Debug.Log("allPoints.Count" + allPoints.Count);
+
         for (int i = 1; i < allPoints.Count; i++)
         {
             // int  xx=  (int)(allPoints[i].x * tmp2D.width);
@@ -34,32 +35,35 @@ public class Painter : MonoBehaviour {
             Vector2 tmpFront = allPoints[i - 1];
             Vector2 tmpBack = allPoints[i];
 
-            //  两点之间 在插入 100 个像素点
-            for (int j = 0; j < 100; j++)
-            {
-                int  xx = (int)  Mathf.Lerp(tmpFront.x * tmp2D.width , tmpBack.x* tmp2D.width, j / 100.0f);
+            // //  两点之间 在插入 100 个像素点
+            // for (int j = 0; j < 100; j++)
+            // {
+            //     int  xx = (int)  Mathf.Lerp(tmpFront.x * tmp2D.width , tmpBack.x* tmp2D.width, j / 100.0f);
 
-                int yy = (int)Mathf.Lerp(tmpFront.y* tmp2D.height, tmpBack.y * tmp2D.height, j / 100.0f);
+            //     int yy = (int)Mathf.Lerp(tmpFront.y* tmp2D.height, tmpBack.y * tmp2D.height, j / 100.0f);
 
-                tmp2D.SetPixel(xx, yy, Color.red);
-                // 线条加粗
-                for (int a = xx - 2; a < xx + 2; a++)
-                {
-                    for (int b = yy - 2; b < yy + 2; b++)
-                    {
-                        tmp2D.SetPixel(a, b, Color.red);
-                    }
-                }
-            }
+            //     tmp2D.SetPixel(xx, yy, Color.black);
+            //     // 线条加粗
+            //     for (int a = xx - 2; a < xx + 2; a++)
+            //     {
+            //         for (int b = yy - 2; b < yy + 2; b++)
+            //         {
+            //             tmp2D.SetPixel(a, b, Color.red);
+            //         }
+            //     }
+            // }
 
 
+
+            tmp2D.SetPixel((int)allPoints[i].x, (int)allPoints[i].y, Color.black);
         }
 
 
         tmp2D.Apply();
 
 
-        gameObject.GetComponent<Renderer>().material.SetTexture("_TwoTex",tmp2D);
+        //gameObject.GetComponent<Renderer>().material.mainTexture = tmp2D;
+        gameObject.GetComponent<RawImage>().texture = tmp2D;
 
 
     }
@@ -87,101 +91,119 @@ public class Painter : MonoBehaviour {
 
         //GetComponent<Renderer>().material.mainTexture = tmp2D;
 
-
-
+        button1 = transform.GetComponent<Button>();
+        button1.onClick.AddListener(OnDraw);
     }
 
 
-    static Material lineMaterial;
-    static void CreateLineMaterial()
+
+    public void OnDraw()
     {
-        if (!lineMaterial)
+        MainManager.Instance.ComputingAllPos();
+        for (int i = 0; i < MainManager.Instance.posList.Count; i++)
         {
-            // Unity has a built-in shader that is useful for drawing
-            // simple colored things.
-            Shader shader = Shader.Find("Hidden/Internal-Colored");
-            lineMaterial = new Material(shader);
-            lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-            // Turn on alpha blending
-            lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            // Turn backface culling off
-            lineMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
-            // Turn off depth writes
-            lineMaterial.SetInt("_ZWrite", 0);
+            Vector2 vec2 = new Vector2();
+            vec2.x = MainManager.Instance.posList[i].x;
+            vec2.y = MainManager.Instance.posList[i].y * 100;
+            if (vec2.y < 300 && vec2.x < 400)
+            {
+                allPoints.Add(vec2);
+            }
         }
+        GenerateText();
     }
+
+
+    // static Material lineMaterial;
+    // static void CreateLineMaterial()
+    // {
+    //     if (!lineMaterial)
+    //     {
+    //         // Unity has a built-in shader that is useful for drawing
+    //         // simple colored things.
+    //         Shader shader = Shader.Find("Hidden/Internal-Colored");
+    //         lineMaterial = new Material(shader);
+    //         lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+    //         // Turn on alpha blending
+    //         lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+    //         lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+    //         // Turn backface culling off
+    //         lineMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
+    //         // Turn off depth writes
+    //         lineMaterial.SetInt("_ZWrite", 0);
+    //     }
+    // }
 
     // Will be called after all regular rendering is done
-    public void OnRenderObject()
-    {
-        CreateLineMaterial();
-        // Apply the line material
-        lineMaterial.SetPass(0);
+    // public void OnRenderObject()
+    // {
+    //     CreateLineMaterial();
+    //     // Apply the line material
+    //     lineMaterial.SetPass(0);
 
-        GL.PushMatrix();
-        // Set transformation matrix for drawing to
-        // match our transform  multify
-        GL.MultMatrix(transform.localToWorldMatrix);
+    //     GL.PushMatrix();
+    //     // Set transformation matrix for drawing to
+    //     // match our transform  multify
+    //     GL.MultMatrix(transform.localToWorldMatrix);
 
-        // Draw lines
-        GL.Begin(GL.LINES);
+    //     // Draw lines
+    //     GL.Begin(GL.LINES);
 
-        // 将 透视投影变 正交投影
-        GL.LoadOrtho();
-
-        
-        GL.Color(Color.red);
-        //// One vertex at transform position
-        //GL.Vertex3(0.2f, 0.2f, 0);
-        //// Another vertex at edge of circle
-        //GL.Vertex3(0.5f,0.5f,0 );
+    //     // 将 透视投影变 正交投影
+    //     GL.LoadOrtho();
 
 
-        for (int i = 1; i < allPoints.Count; i++)
-        {
-            Vector2 tmpFront = allPoints[i - 1];
+    //     GL.Color(Color.red);
+    //     //// One vertex at transform position
+    //     //GL.Vertex3(0.2f, 0.2f, 0);
+    //     //// Another vertex at edge of circle
+    //     //GL.Vertex3(0.5f,0.5f,0 );
 
-            Vector2 tmpBack = allPoints[i];
 
-            GL.Vertex3(tmpFront.x ,tmpFront.y ,0);
+    //     for (int i = 1; i < allPoints.Count; i++)
+    //     {
+    //         Vector2 tmpFront = allPoints[i - 1];
 
-            GL.Vertex3(tmpBack.x, tmpBack.y,0);
-        }
+    //         Vector2 tmpBack = allPoints[i];
 
-        //for (int i = 0; i < lineCount; ++i)
-        //{
-        //    float a = i / (float)lineCount;
-        //    float angle = a * Mathf.PI * 2;
-        //    // Vertex colors change from red to green
-        //    GL.Color(new Color(a, 1 - a, 0, 0.8F));
-        //    // One vertex at transform position
-        //    GL.Vertex3(0, 0, 0);
-        //    // Another vertex at edge of circle
-        //    GL.Vertex3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
-        //}
-        GL.End();
-        GL.PopMatrix();
-    }
+    //         GL.Vertex3(tmpFront.x ,tmpFront.y ,0);
+
+    //         GL.Vertex3(tmpBack.x, tmpBack.y,0);
+    //     }
+
+    //     //for (int i = 0; i < lineCount; ++i)
+    //     //{
+    //     //    float a = i / (float)lineCount;
+    //     //    float angle = a * Mathf.PI * 2;
+    //     //    // Vertex colors change from red to green
+    //     //    GL.Color(new Color(a, 1 - a, 0, 0.8F));
+    //     //    // One vertex at transform position
+    //     //    GL.Vertex3(0, 0, 0);
+    //     //    // Another vertex at edge of circle
+    //     //    GL.Vertex3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
+    //     //}
+    //     GL.End();
+    //     GL.PopMatrix();
+    // }
 
     List<Vector2> allPoints = new List<Vector2>();
-    private void Update()
-    {
-        if(Input.GetMouseButton(0))
-        {
-            // 将 屏幕转视图
-          Vector2  tmpPos=    Camera.main.ScreenToViewportPoint(Input.mousePosition);
+    // private void Update()
+    // {
+    //     if(Input.GetMouseButton(0))
+    //     {
+    //         // 将 屏幕转视图
+    //       Vector2  tmpPos=    Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
-            allPoints.Add(tmpPos);
-        }
+    //         allPoints.Add(tmpPos);
+    //     }
 
-        if (Input.GetMouseButtonUp(0))
-        {
+    //     if (Input.GetMouseButtonUp(0))
+    //     {
 
-            GenerateText();
-            allPoints.Clear();
-        }
+    //         GenerateText();
+    //         allPoints.Clear();
+    //     }
 
 
-    }
+    // }
 }

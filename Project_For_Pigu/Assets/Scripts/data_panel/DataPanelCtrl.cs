@@ -63,14 +63,14 @@ public class DataPanelCtrl : MonoBehaviour {
         casingPressureInput.text="";
         pipeLengthInput.text="";
 
-        swirlAngleText.text="";
-        spiralLineHeightText.text="";
-        spiralLineCountText.text="";
-        pipeLineWidthText.text="";
-        spiralLineWidthText.text="";
-        splShapeText.text="";
-        splDirectionText.text="";
-        leadCountText.text="";
+        swirlAngleText.text = "";
+        spiralLineHeightText.text = "";
+        spiralLineCountText.text = "";
+        pipeLineWidthText.text = "";
+        spiralLineWidthText.text = "";
+        splShapeText.text = "";
+        splDirectionText.text = "";
+        leadCountText.text = "";
     }
     // Use this for initialization
     void Start () 
