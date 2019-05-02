@@ -54,8 +54,9 @@ public class DataPanelCtrl : MonoBehaviour {
         }
     }
 
-    public void RefreshPanel()
+    public void RefreshPanel(int chooseCal)
     {
+        MainManager.Instance.TableSelect = chooseCal;
         diameterInput.text = PipeWide.ToString();
         waterExtractionInput.text="";
         gasExtractionInput.text="";
@@ -128,6 +129,20 @@ public class DataPanelCtrl : MonoBehaviour {
             Global.Instance.ShowErrorTip("管长输入错误");
             return;
         }
+        MainManager.Instance.ComputingAHL();
+        RefreshResult();
+    }
+
+    void RefreshResult()
+    {
+        swirlAngleText.text = MainManager.Instance.SwirlAngle.ToString();
+        spiralLineHeightText.text = MainManager.Instance.SpiralLineHeight.ToString();
+        spiralLineCountText.text = MainManager.Instance.SpiralLineCount.ToString();
+        pipeLineWidthText.text = pipeWide.ToString();
+        spiralLineWidthText.text = MainManager.Instance.SpiralLineWidth.ToString();
+        splShapeText.text = MainManager.Instance.SplShape.ToString();
+        splDirectionText.text = MainManager.Instance.SplDirection.ToString();
+        leadCountText.text = MainManager.Instance.LeadCount.ToString() + "个";
     }
 
     void BackBtnClick()

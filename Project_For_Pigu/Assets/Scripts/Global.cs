@@ -62,7 +62,7 @@ public class Global : MonoBehaviour {
         DataPanelCtrl dataCtrl = dataPanel.GetComponent<DataPanelCtrl>();
         dataCtrl.PipeWide = pipeWide;
         //MainManager.Instance.PipeDiameter=pipeWide;
-        dataCtrl.RefreshPanel();
+        dataCtrl.RefreshPanel(num);
 
     }
 
