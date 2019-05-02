@@ -27,12 +27,44 @@ public class MainManager
     private float _swirlAngle;
     private float _spiralLineHeight;
     private float _spiralLineCount;
-    private float _spiralLineWidth;
+    private float _spiralLineWidth=6f;
     private string _splShape = "长方形";
     private string _splDirection = "正向";
     private int _leadCount = 4;
     private float _GasWaterProp ;
     private float _Speed;
+
+    private float _validLength;
+    private float _maxYValue;
+
+    /// <summary>
+    /// 最大切向速度
+    /// </summary>
+    public float MaxYValue
+    {
+        get
+        {
+            return _maxYValue;
+        }
+        set
+        {
+            _maxYValue = value;
+        }
+    }
+    /// <summary>
+    /// 有效作用长度
+    /// </summary>
+    public float MaxXValue
+    {
+        get
+        {
+            return _validLength;
+        }
+        set
+        {
+            _validLength = value;
+        }
+    }
 
     /// <summary>
     /// 管径
@@ -256,9 +288,9 @@ public class MainManager
     public void ComputingAHL()
     {
         //汽水比
-        GasWaterProp  = WaterExtraction / GasExtraction;
+        GasWaterProp  = WaterExtraction / GasExtraction*10000;
         //速度
-        Speed = GasExtraction / (Mathf.PI * PipeDiameter * PipeDiameter / 4);
+        Speed = GasExtraction / (Mathf.PI * PipeDiameter * PipeDiameter / 4)/3600/24;
         //选用哪张表
         if (TableSelect == 1)
         {
@@ -579,7 +611,7 @@ public class MainManager
         posList = new List<PointPos>();
         ComputingAHL();
         float x,v, d,r, md,nd,re,k, w, w1, w2, w3, w4, jiao, a1, a2, a3, a4;
-        w = 1;
+        w = 0;
         jiao = SwirlAngle * Mathf.PI / 180;
         v = Speed;
         d = PipeDiameter;
@@ -601,12 +633,17 @@ public class MainManager
             w2 = 5.26f * Mathf.Tan(jiao) / 2 / Mathf.PI * a2 * Mathf.Exp(-(55.714f) * (1 + (4.15f * Mathf.Pow(10, (-3)) * Mathf.Pow(re, 0.86f))) / re * x);
             w3 = 3.93f * Mathf.Tan(jiao) / 2 / Mathf.PI * a3 * Mathf.Exp(-(117.86f) * (1 + (4.15f * Mathf.Pow(10, (-3)) * Mathf.Pow(re, 0.86f))) / re * x);
             w4 = 3.16f * Mathf.Tan(jiao) / 2 / Mathf.PI * a4 * Mathf.Exp(-(203.73f) * (1 + (4.15f * Mathf.Pow(10, (-3)) * Mathf.Pow(re, 0.86f))) / re * x);
+            //记录一个y方向最大值
+            if(w1 + w2 + w3 + w4 > w)
+            {
+            MaxYValue = w1 + w2 + w3 + w4;
+            }
             w = w1 + w2 + w3 + w4;
             PointPos pos = new PointPos(x, w);
             posList.Add(pos);
         }
         while (w>0.0035);
-
+        MaxXValue = x;
         return posList;
     }
 }

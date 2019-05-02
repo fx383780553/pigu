@@ -39,6 +39,13 @@ public class DataPanelCtrl : MonoBehaviour {
     [SerializeField]
     Button backButton;
 
+    [SerializeField]
+    RawImage imageLine;
+    [SerializeField]
+    Text maxX;
+    [SerializeField]
+    Text maxY;
+
     private float pipeWide;
 
     public float PipeWide
@@ -72,6 +79,8 @@ public class DataPanelCtrl : MonoBehaviour {
         splShapeText.text = "";
         splDirectionText.text = "";
         leadCountText.text = "";
+        maxX.text = "有效作用长度：";
+        maxY.text = "切向速度：";
     }
     // Use this for initialization
     void Start () 
@@ -131,6 +140,11 @@ public class DataPanelCtrl : MonoBehaviour {
         }
         MainManager.Instance.ComputingAHL();
         RefreshResult();
+
+        //绘图
+        imageLine.GetComponent<Painter>().OnDraw();
+        maxX.text = "有效作用长度：" + MainManager.Instance.MaxXValue.ToString() + "m";
+        maxY.text = "最大切向速度：" + MainManager.Instance.MaxYValue.ToString() + "m/s";
     }
 
     void RefreshResult()
@@ -139,10 +153,10 @@ public class DataPanelCtrl : MonoBehaviour {
         spiralLineHeightText.text = MainManager.Instance.SpiralLineHeight.ToString();
         spiralLineCountText.text = MainManager.Instance.SpiralLineCount.ToString();
         pipeLineWidthText.text = pipeWide.ToString();
-        spiralLineWidthText.text = MainManager.Instance.SpiralLineWidth.ToString();
+        spiralLineWidthText.text = MainManager.Instance.SpiralLineWidth.ToString()+"mm";
         splShapeText.text = MainManager.Instance.SplShape.ToString();
         splDirectionText.text = MainManager.Instance.SplDirection.ToString();
-        leadCountText.text = MainManager.Instance.LeadCount.ToString() + "个";
+        leadCountText.text = MainManager.Instance.LeadCount.ToString() + "个";        
     }
 
     void BackBtnClick()

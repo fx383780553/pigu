@@ -32,8 +32,8 @@ public class Painter : MonoBehaviour
 
             //tmp2D.SetPixel(xx,yy,Color.red);
 
-            Vector2 tmpFront = allPoints[i - 1];
-            Vector2 tmpBack = allPoints[i];
+            //Vector2 tmpFront = allPoints[i - 1];
+            //Vector2 tmpBack = allPoints[i];
 
             // //  两点之间 在插入 100 个像素点
             // for (int j = 0; j < 100; j++)
@@ -91,8 +91,8 @@ public class Painter : MonoBehaviour
 
         //GetComponent<Renderer>().material.mainTexture = tmp2D;
 
-        button1 = transform.GetComponent<Button>();
-        button1.onClick.AddListener(OnDraw);
+        //button1 = transform.GetComponent<Button>();
+        //button1.onClick.AddListener(OnDraw);
     }
 
 
@@ -100,11 +100,12 @@ public class Painter : MonoBehaviour
     public void OnDraw()
     {
         MainManager.Instance.ComputingAllPos();
+        allPoints.Clear();
         for (int i = 0; i < MainManager.Instance.posList.Count; i++)
         {
             Vector2 vec2 = new Vector2();
-            vec2.x = MainManager.Instance.posList[i].x;
-            vec2.y = MainManager.Instance.posList[i].y * 100;
+            vec2.x = MainManager.Instance.posList[i].x*0.8f;
+            vec2.y = MainManager.Instance.posList[i].y * 450;
             if (vec2.y < 300 && vec2.x < 400)
             {
                 allPoints.Add(vec2);
