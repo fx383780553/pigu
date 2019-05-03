@@ -45,6 +45,8 @@ public class DataPanelCtrl : MonoBehaviour {
     Text maxX;
     [SerializeField]
     Text maxY;
+    [SerializeField]
+    Text setLevel;
 
     private float pipeWide;
 
@@ -81,6 +83,7 @@ public class DataPanelCtrl : MonoBehaviour {
         leadCountText.text = "";
         maxX.text = "有效作用长度：";
         maxY.text = "切向速度：";
+        setLevel.text = "安装级数：";
     }
     // Use this for initialization
     void Start () 
@@ -139,15 +142,10 @@ public class DataPanelCtrl : MonoBehaviour {
             return;
         }
         MainManager.Instance.ComputingAHL();
-        RefreshResult();
-
-        //绘图
-        imageLine.GetComponent<Painter>().OnDraw();
-        maxX.text = "有效作用长度：" + MainManager.Instance.MaxXValue.ToString() + "m";
-        maxY.text = "最大切向速度：" + MainManager.Instance.MaxYValue.ToString() + "m/s";
+        RefreshResult(pipeLength);
     }
 
-    void RefreshResult()
+    void RefreshResult(float pipeLength)
     {
         swirlAngleText.text = MainManager.Instance.SwirlAngle.ToString();
         spiralLineHeightText.text = MainManager.Instance.SpiralLineHeight.ToString();
@@ -156,7 +154,15 @@ public class DataPanelCtrl : MonoBehaviour {
         spiralLineWidthText.text = MainManager.Instance.SpiralLineWidth.ToString()+"mm";
         splShapeText.text = MainManager.Instance.SplShape.ToString();
         splDirectionText.text = MainManager.Instance.SplDirection.ToString();
-        leadCountText.text = MainManager.Instance.LeadCount.ToString() + "个";        
+        leadCountText.text = MainManager.Instance.LeadCount.ToString() + "个";
+        //绘图
+        imageLine.GetComponent<Painter>().OnDraw();
+        maxX.text = "有效作用长度：" + MainManager.Instance.MaxXValue.ToString() + "m";
+        maxY.text = "最大切向速度：" + MainManager.Instance.MaxYValue.ToString() + "m/s";
+        if (MainManager.Instance.MaxXValue > 0f)
+            setLevel.text = "安装级数：" + Mathf.Ceil(pipeLength / MainManager.Instance.MaxXValue);
+        else
+            setLevel.text = "安装级数：0";
     }
 
     void BackBtnClick()
