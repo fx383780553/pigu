@@ -19,9 +19,9 @@ public class VectorData : MonoBehaviour {
             float.TryParse(value, out y);
         });
     }
-    public Vector2 getValue()
+    public PointPos getValue()
     {
-        return new Vector2(x, y);
+        return new PointPos(x, y);
     }
 
 }

@@ -2052,6 +2052,7 @@ MonoBehaviour:
   pipeLengthCalButton: {fileID: 114994906270183512}
   drawButton: {fileID: 114833902546279932}
   nextButton: {fileID: 114948031194126872}
+  Image: {fileID: 114583652521355010}
 --- !u!114 &114583652521355010
 MonoBehaviour:
   m_ObjectHideFlags: 1

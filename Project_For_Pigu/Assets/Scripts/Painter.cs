@@ -114,6 +114,22 @@ public class Painter : MonoBehaviour
         GenerateText();
     }
 
+    public void OnDraw(List<PointPos> posList)
+    {
+        allPoints.Clear();
+        for (int i = 0; i < posList.Count; i++)
+        {
+            Vector2 vec2 = new Vector2();
+            vec2.x = posList[i].x * 0.8f;
+            vec2.y = posList[i].y * 450;
+            if (vec2.y < 300 && vec2.x < 400)
+            {
+                allPoints.Add(vec2);
+            }
+        }
+        GenerateText();
+    }
+
 
     // static Material lineMaterial;
     // static void CreateLineMaterial()

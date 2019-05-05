@@ -24,6 +24,8 @@ public class PipeLinePanelCtrl : MonoBehaviour {
     Button drawButton;
     [SerializeField]
     Button nextButton;
+    [SerializeField]
+    Painter Image;
     List<VectorData> vectorDatas;
     float totalPipeLength;
 
@@ -33,7 +35,7 @@ public class PipeLinePanelCtrl : MonoBehaviour {
         addBtn.onClick.AddListener(AddBtnClick);
         pipeLengthCalButton.onClick.AddListener(PipeLengthCalButtonClick);
         nextButton.onClick.AddListener(NextButtonClick);
-
+        drawButton.onClick.AddListener(DrawButtonClick);
     }
 
     void AddBtnClick()
@@ -88,6 +90,16 @@ public class PipeLinePanelCtrl : MonoBehaviour {
             return;
         }
         Global.Instance.EnterDataPanel();
+    }
+
+    void DrawButtonClick()
+    {
+        List<PointPos> posList = new List<PointPos>();
+        for (int i = 0; i < vectorDatas.Count; i++)
+        {
+            posList.Add(vectorDatas[i].getValue());
+        }
+        Image.OnDraw(posList);
     }
 
     void RefreshPanel()
