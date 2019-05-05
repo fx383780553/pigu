@@ -117,17 +117,55 @@ public class Painter : MonoBehaviour
     public void OnDraw(List<PointPos> posList)
     {
         allPoints.Clear();
-        for (int i = 0; i < posList.Count; i++)
+        for (int i = 0; i < posList.Count - 1; i++)
         {
-            Vector2 vec2 = new Vector2();
-            vec2.x = posList[i].x * 0.8f;
-            vec2.y = posList[i].y * 450;
-            if (vec2.y < 300 && vec2.x < 400)
+            Vector2 pos1 = new Vector2();
+            Vector2 pos2 = new Vector2();
+            pos1.x = posList[i].x;
+            pos1.y = posList[i].y;
+            pos2.x = posList[i + 1].x;
+            pos2.y = posList[i + 1].y;
+
+            float k = (pos2.y - pos1.y) / (pos2.x - pos1.x);
+            float b = pos1.y - k * pos1.x;
+
+            float x = pos1.x + 0.1f;
+            do
             {
-                allPoints.Add(vec2);
+                float y = k * x + b;
+                Vector2 pos = new Vector2();
+                pos.x = x;
+                pos.y = y;
+                if (pos.y < 400 && pos.x < 400)
+                {
+                    allPoints.Add(pos);
+                }
+                x += 0.1f;
+            }
+            while (x < pos2.x);
+        }
+        GenerateText(allPoints);
+    }
+
+    public void GenerateText(List<Vector2> posList)
+    {
+        Texture2D tmp2D = new Texture2D(400, 400);
+        for (int i = 0; i < tmp2D.width; i++)
+        {
+            for (int j = 0; j < tmp2D.height; j++)
+            {
+                tmp2D.SetPixel(i, j, Color.white);
             }
         }
-        GenerateText();
+        tmp2D.Apply();
+        Debug.Log("posList.Count:" + posList.Count);
+
+        for (int i = 1; i < posList.Count; i++)
+        {
+            tmp2D.SetPixel((int)posList[i].x, (int)posList[i].y, Color.black);
+        }
+        tmp2D.Apply();
+        gameObject.GetComponent<RawImage>().texture = tmp2D;
     }
 
 
