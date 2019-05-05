@@ -102,9 +102,22 @@ public class PipeLinePanelCtrl : MonoBehaviour {
         Image.OnDraw(posList);
     }
 
-    void RefreshPanel()
+    public void RefreshPanel()
     {
-
+        HorizPipeLengthInput.text = "";
+        MakePipeLengthInput.text = "";
+        JingXieJiaoInput.text = "";
+        VerticalPipeLenghtInput.text = "";
+        TotalPipeLengthInput.text = "";
+        if (vectorDatas != null)
+        {
+            for (int i = 0; i < vectorDatas.Count; i++)
+            {
+                VectorData vecData = vectorDatas[i];
+                DestroyImmediate(vecData.gameObject);
+            }
+            vectorDatas.Clear();
+        }
     }
 
 }

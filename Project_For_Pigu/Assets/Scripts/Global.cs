@@ -59,6 +59,8 @@ public class Global : MonoBehaviour {
     {
         CloseAllPanel();
         OpenPipeLinePanel();
+        PipeLinePanelCtrl pipeLinePanelCtrl = pipeLinePanel.GetComponent<PipeLinePanelCtrl>();
+        pipeLinePanelCtrl.RefreshPanel();
     }
 
     void OpenPipeLinePanel()
