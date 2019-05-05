@@ -141,6 +141,17 @@ public class DataPanelCtrl : MonoBehaviour {
             Global.Instance.ShowErrorTip("管长输入错误");
             return;
         }
+        if (waterExtraction * 10000 / gasExtraction < 0.1f)
+        {
+            Global.Instance.ShowErrorTip("水汽比不适用");
+            return;
+        }
+        if (gasExtraction / (Mathf.PI * pipeWide * pipeWide * 21600f) < 8f)
+        {
+            Global.Instance.ShowErrorTip("速度不适用");
+            return;
+        }
+        
         MainManager.Instance.ComputingAHL();
         RefreshResult(pipeLength);
     }
