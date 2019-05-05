@@ -49,7 +49,6 @@ public class DataPanelCtrl : MonoBehaviour {
     Text setLevel;
 
     private float pipeWide;
-
     public float PipeWide
     {
         get
@@ -63,6 +62,22 @@ public class DataPanelCtrl : MonoBehaviour {
         }
     }
 
+    public float PipeLength
+    {
+        get
+        {
+            return pipeLength;
+        }
+
+        set
+        {
+            pipeLength = value;
+        }
+    }
+
+    private float pipeLength;
+
+
     public void RefreshPanel(int chooseCal)
     {
         MainManager.Instance.TableSelect = chooseCal;
@@ -71,7 +86,7 @@ public class DataPanelCtrl : MonoBehaviour {
         gasExtractionInput.text="";
         oilPressureInput.text="";
         casingPressureInput.text="";
-        pipeLengthInput.text="";
+        pipeLengthInput.text = PipeLength.ToString();
 
         swirlAngleText.text = "";
         spiralLineHeightText.text = "";

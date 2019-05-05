@@ -51,10 +51,18 @@ public class TipPanelCtrl : MonoBehaviour {
         float inputFloat = GetInputMsg();
         if (inputFloat < 0.04f || inputFloat >= 0.15f)
             ShowTips("不适用");
-        else if(inputFloat >= 0.04f & inputFloat < 0.08f)
-            Global.Instance.EnterDataPanel(inputFloat, 1);
+        else if (inputFloat >= 0.04f & inputFloat < 0.08f)
+        {
+            Global.Instance.gbData.PipeWide = inputFloat;
+            Global.Instance.gbData.CalType = 1;
+            Global.Instance.EnterPipeLinePanel();
+        }
         else
-            Global.Instance.EnterDataPanel(inputFloat, 2);
+        {
+            Global.Instance.gbData.PipeWide = inputFloat;
+            Global.Instance.gbData.CalType = 2;
+            Global.Instance.EnterPipeLinePanel();
+        }
     }
 
     public void RefreshPanel()
