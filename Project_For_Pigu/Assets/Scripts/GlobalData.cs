@@ -43,7 +43,37 @@ public class GlobalData  {
         }
     }
 
+    public float HorizLength
+    {
+        get
+        {
+            return horizLength;
+        }
+
+        set
+        {
+            horizLength = value;
+        }
+    }
+
+    public float MakeXieLength
+    {
+        get
+        {
+            return makeXieLength;
+        }
+
+        set
+        {
+            makeXieLength = value;
+        }
+    }
+
     private int calType;
 
     private float pipeLength;
+
+    private float horizLength;
+
+    private float makeXieLength;
 }

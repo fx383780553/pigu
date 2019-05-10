@@ -38,7 +38,8 @@ public class DataPanelCtrl : MonoBehaviour {
     Button sureButton;
     [SerializeField]
     Button backButton;
-
+    [SerializeField]
+    Button nextButton;
     [SerializeField]
     RawImage imageLine;
     [SerializeField]
@@ -47,6 +48,7 @@ public class DataPanelCtrl : MonoBehaviour {
     Text maxY;
     [SerializeField]
     Text setLevel;
+    bool hasCal = false;
 
     private float pipeWide;
     public float PipeWide
@@ -99,12 +101,14 @@ public class DataPanelCtrl : MonoBehaviour {
         maxX.text = "有效作用长度：";
         maxY.text = "切向速度：";
         setLevel.text = "安装级数：";
+        hasCal = false;
     }
     // Use this for initialization
     void Start () 
     {
         sureButton.onClick.AddListener(SureBtnClick);
         backButton.onClick.AddListener(BackBtnClick);
+        nextButton.onClick.AddListener(nextBtnClick);
     }
 
     void SureBtnClick()
@@ -189,11 +193,18 @@ public class DataPanelCtrl : MonoBehaviour {
             setLevel.text = "安装级数：" + Mathf.Ceil(pipeLength / MainManager.Instance.MaxXValue);
         else
             setLevel.text = "安装级数：0";
+        hasCal = true;
     }
 
     void BackBtnClick()
     {
         Global.Instance.EnterTipPanel();
+    }
+    void nextBtnClick() {
+        if(hasCal)
+            Global.Instance.EnterResultPanel();
+        else
+            Global.Instance.ShowErrorTip("请先进行计算");
     }
 
 }

@@ -8,6 +8,7 @@ public class Global : MonoBehaviour {
     private GameObject dataPanel;
     private GameObject errorTipPanel;
     private GameObject pipeLinePanel;
+    private GameObject resultPanel;
     public GlobalData gbData;
     private static Global instance;
 
@@ -108,6 +109,30 @@ public class Global : MonoBehaviour {
             dataPanel.SetActive(false);
     }
 
+    public void EnterResultPanel()
+    {
+        CloseAllPanel();
+        OpenResultPanel();
+
+        ResultPanelCtrl resultCtrl = resultPanel.GetComponent<ResultPanelCtrl>();
+        resultCtrl.RefreshPanel();
+    }
+
+    void OpenResultPanel()
+    {
+        if (resultPanel == null)
+            resultPanel = Instantiate(Resources.Load<GameObject>("result_panel"), mainCanvas.transform);
+        else
+            resultPanel.SetActive(true);
+    }
+
+    void CloseResultPanel()
+    {
+        if (resultPanel == null)
+            return;
+        else
+            resultPanel.SetActive(false);
+    }
     public void ShowErrorTip(string errorInfo)
     {
         if (errorTipPanel == null)
@@ -131,5 +156,6 @@ public class Global : MonoBehaviour {
         CloseTipPanel();
         CloseErrorTip();
         ClosePipeLinePanel();
+        CloseResultPanel();
     }
 }

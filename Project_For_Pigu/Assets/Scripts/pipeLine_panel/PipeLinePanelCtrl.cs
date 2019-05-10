@@ -62,13 +62,13 @@ public class PipeLinePanelCtrl : MonoBehaviour {
             return;
         }
 
-        float JingXieJiao = 0;
+        /*float JingXieJiao = 0;
         parseSucces = float.TryParse(JingXieJiaoInput.text, out JingXieJiao);
         if (!parseSucces)
         {
             Global.Instance.ShowErrorTip("井斜角输入错误");
             return;
-        }
+        }*/
 
         float VerticalPipeLenght = 0;
         parseSucces = float.TryParse(VerticalPipeLenghtInput.text, out VerticalPipeLenght);
@@ -80,6 +80,8 @@ public class PipeLinePanelCtrl : MonoBehaviour {
         totalPipeLength = HorizPipeLength + MakePipeLength + VerticalPipeLenght;
         TotalPipeLengthInput.text = totalPipeLength.ToString();
         Global.Instance.gbData.PipeLength = totalPipeLength;
+        Global.Instance.gbData.HorizLength = HorizPipeLength;
+        Global.Instance.gbData.MakeXieLength = MakePipeLength;
     }
 
     void NextButtonClick()
