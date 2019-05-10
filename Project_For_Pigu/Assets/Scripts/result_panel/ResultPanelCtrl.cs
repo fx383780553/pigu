@@ -62,6 +62,10 @@ public class ResultPanelCtrl : MonoBehaviour {
         lengthRight.text = (MainManager.Instance.MaxXValue * Mathf.Cos(offset)).ToString();
         speedRight.text = (MainManager.Instance.MaxYValue * Mathf.Cos(offset)).ToString();
         levelRight.text = Mathf.Ceil(Global.Instance.gbData.MakeXieLength * 0.64f / (MainManager.Instance.MaxXValue * Mathf.Cos(offset))).ToString();
+
+        ImageLeft.GetComponent<Painter>().OnDraw(1);
+        ImageRight.GetComponent<Painter>().OnDraw(2);
+
     }
     void backBtnClick()
     {

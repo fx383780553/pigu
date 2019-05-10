@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Painter : MonoBehaviour
 {
-
-    // When added to an object, draws colored rays from the
-    // transform position.
+    
     Button button1;
+    List<Vector2> allPoints = new List<Vector2>();
 
-    public void GenerateText()
+
+    public void GenerateText(int num=1)
     {
         Texture2D tmp2D = new Texture2D(400, 300);
         for (int i = 0; i < tmp2D.width; i++)
@@ -26,24 +26,12 @@ public class Painter : MonoBehaviour
 
         for (int i = 1; i < allPoints.Count; i++)
         {
-            // int  xx=  (int)(allPoints[i].x * tmp2D.width);
-
-            //int yy = (int)(allPoints[i].y * tmp2D.height);
-
-            //tmp2D.SetPixel(xx,yy,Color.red);
-
-            //Vector2 tmpFront = allPoints[i - 1];
-            //Vector2 tmpBack = allPoints[i];
-
-            // //  两点之间 在插入 100 个像素点
-            // for (int j = 0; j < 100; j++)
-            // {
-            //     int  xx = (int)  Mathf.Lerp(tmpFront.x * tmp2D.width , tmpBack.x* tmp2D.width, j / 100.0f);
-
-            //     int yy = (int)Mathf.Lerp(tmpFront.y* tmp2D.height, tmpBack.y * tmp2D.height, j / 100.0f);
-
-            //     tmp2D.SetPixel(xx, yy, Color.black);
-            //     // 线条加粗
+           
+            if(num==1)
+            tmp2D.SetPixel((int)allPoints[i].x, (int)allPoints[i].y, Color.black);
+            else
+                tmp2D.SetPixel((int)allPoints[i].x, (int)(allPoints[i].y*Mathf.Cos(0.3927f)), Color.black);
+            // 线条加粗
             //     for (int a = xx - 2; a < xx + 2; a++)
             //     {
             //         for (int b = yy - 2; b < yy + 2; b++)
@@ -51,44 +39,25 @@ public class Painter : MonoBehaviour
             //             tmp2D.SetPixel(a, b, Color.red);
             //         }
             //     }
-            // }
-
-
-
-            tmp2D.SetPixel((int)allPoints[i].x, (int)allPoints[i].y, Color.black);
         }
-
-
         tmp2D.Apply();
-
-
         //gameObject.GetComponent<Renderer>().material.mainTexture = tmp2D;
         gameObject.GetComponent<RawImage>().texture = tmp2D;
-
-
     }
 
 
     private void Start()
     {
-
         //Texture2D tmp2D = new Texture2D(300, 400);
-
         //for (int i = 0; i < 200; i++)
         //{
-
         //    for (int j = 0; j < 40; j++)
         //    {
         //        // 遍历图片上 每一个像素点
         //        tmp2D.SetPixel(i, j, Color.red);
         //    }
-
-
         //}
-
         //tmp2D.Apply();
-
-
         //GetComponent<Renderer>().material.mainTexture = tmp2D;
 
         //button1 = transform.GetComponent<Button>();
@@ -96,8 +65,8 @@ public class Painter : MonoBehaviour
     }
 
 
-
-    public void OnDraw()
+    //1参数表示左侧的图
+    public void OnDraw(int num=1)
     {
         MainManager.Instance.ComputingAllPos();
         allPoints.Clear();
@@ -111,7 +80,10 @@ public class Painter : MonoBehaviour
                 allPoints.Add(vec2);
             }
         }
-        GenerateText();
+        if (num == 1)
+            GenerateText();
+        else
+            GenerateText(num);
     }
 
     public void OnDraw(List<PointPos> posList)
@@ -167,6 +139,7 @@ public class Painter : MonoBehaviour
         tmp2D.Apply();
         gameObject.GetComponent<RawImage>().texture = tmp2D;
     }
+
 
 
     // static Material lineMaterial;
@@ -241,7 +214,6 @@ public class Painter : MonoBehaviour
     //     GL.PopMatrix();
     // }
 
-    List<Vector2> allPoints = new List<Vector2>();
     // private void Update()
     // {
     //     if(Input.GetMouseButton(0))
